@@ -17,7 +17,7 @@ export default function Detail() {
   };
 
   useEffect(() => {
-    axios.get("/personalized?proxy").then((res) => {
+    axios.get("/personalized").then((res) => {
       setmusicList(res.result);
     });
   }, []);

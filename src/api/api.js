@@ -3,8 +3,7 @@ import { Toast } from "antd-mobile";
 import { history } from "../history";
 
 // const baseurl = "/proxy";
-// const baseurl = "https://node-music-cyan.vercel.app";
-const baseurl = "";
+const baseurl = "https://node-music-cyan.vercel.app";
 
 const api = axios.create({
   baseURL: baseurl,
@@ -12,7 +11,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((req) => {
-  req.headers.Authorization = "bd2a82105ec274abf86f0d69cfdc4f71";
+  // req.headers.Authorization = "bd2a82105ec274abf86f0d69cfdc4f71";
   return req;
 });
 api.interceptors.response.use(
