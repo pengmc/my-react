@@ -19,14 +19,23 @@ export default function Login() {
       phone,
       password: md5(pass),
     };
-    axios.get("/login/cellphone", { params: data }).then((res) => {
-      console.log(res);
-      if (res.code === 200) {
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("account", JSON.stringify(res.account));
-        navigate("/home");
-      }
-    });
+    axios
+      .get("/login/cellphone", { params: data })
+      .then((res) => {
+        console.log(res);
+        if (res.code === 200) {
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("account", JSON.stringify(res.account));
+          navigate("/home");
+        } else {
+          console.log(1231);
+          localStorage.setItem("token", "111");
+        }
+      })
+      .catch((err) => {
+        console.log(1231);
+        localStorage.setItem("token", "111");
+      });
   };
 
   const [phone, setphone] = useState("17687997972");
