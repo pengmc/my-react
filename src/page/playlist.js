@@ -20,6 +20,7 @@ function Playlist() {
     axios.get("/playlist/detail?id=" + params.id).then((res) => {
       console.log(res.playlist.tracks);
       setlist(res.playlist.tracks);
+      store.setLzy(res.playlist.tracks);
     });
   }, [params.id]);
 
@@ -27,19 +28,15 @@ function Playlist() {
     navigate(-1);
   };
 
-  const play = (id, name) => {
+  const play = (id, item, index) => {
     console.log(id);
-    axios.get("/song/url?id=" + id).then((res) => {
-      console.log(res);
-      store.playUrl(res.data[0].url);
-      store.setsong(name);
-    });
+    store.setsong(item.name + " — " + item.ar[0].name);
+    store.setCount(index);
     navigate("/musicView/" + id);
   };
 
   const picView = (e, url) => {
     e.stopPropagation();
-    console.log(url);
     setVisible(true);
     setdemoImage(url);
   };
@@ -49,12 +46,12 @@ function Playlist() {
       <NavBar onBack={back}>详情</NavBar>
 
       <ul>
-        {palylist.map((item) => {
+        {palylist.map((item, index) => {
           return (
             <li
               key={item.id}
               className="flex flex_item mt20 wrap"
-              onClick={() => play(item.id, item.name)}
+              onClick={() => play(item.id, item, index)}
             >
               <img
                 alt=""
@@ -72,7 +69,7 @@ function Playlist() {
               <div>
                 <p className="ml20 ">{item.name}</p>
                 <p style={{ flex: 1, color: "#666" }} className="ml20">
-                  作者： {item.ar[0].name}
+                  {item.ar[0].name}
                 </p>
               </div>
             </li>

@@ -2,6 +2,7 @@ import { NavBar } from "antd-mobile";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/api";
+import { store } from "../store";
 
 export default function Detail() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Detail() {
     navigate(-1);
   };
 
-  const palyer = (id) => {
+  const palyer = (id, index) => {
     navigate("/playlist/" + id);
   };
 
@@ -29,7 +30,10 @@ export default function Detail() {
       <div>
         {musicList.map((item, index) => {
           return (
-            <div className="flex mt20 warp" onClick={() => palyer(item.id)}>
+            <div
+              className="flex mt20 warp"
+              onClick={() => palyer(item.id, index)}
+            >
               <img alt="" src={item.picUrl + "?param=50y50"} />
               <div className="ml20" key={item.id}>
                 {item.name}

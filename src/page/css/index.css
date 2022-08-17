@@ -126,6 +126,7 @@ ul{
 .scroll{
   overflow-y: scroll;
   height: 70vh;
+  scroll-behavior: smooth;
 }
 
 .active{

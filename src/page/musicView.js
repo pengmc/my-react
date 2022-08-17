@@ -16,22 +16,30 @@ function MusicView() {
 
   const [isshow, setShow] = useState(false);
 
+  const [Id, setId] = useState(param.id);
+
   useEffect(() => {
     clearInterval(store.time);
     let el = document.querySelector("#musicview");
     let audio = document.querySelector("#audio");
+
     el.scrollTo(0, 0);
+    audio.currentTime = 0;
+    settime(0);
+    setShow(false);
+
     store.time = setInterval(() => {
       settime(parseInt(audio.currentTime * 1000));
       el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
     }, 1000);
-  }, []);
+  }, [Id]);
 
   const back = () => {
     navigate(-1);
     clearInterval(store.time);
   };
 
+  //时间转换
   const timeformat = (item) => {
     if (item === "") {
       return "000000";
@@ -54,14 +62,21 @@ function MusicView() {
 
   const getscoll = () => {
     let active = document.querySelector(".active");
+    if (!active) {
+      return 220;
+    }
     return active.offsetTop - active.offsetHeight;
   };
 
   useEffect(() => {
-    axios.get("/lyric?id=" + param.id).then((res) => {
+    axios.get("/lyric?id=" + Id).then((res) => {
       setlrclist(res.lrc.lyric.split("\n"));
     });
-  }, [param.id]);
+
+    axios.get("/song/url?id=" + Id).then((res) => {
+      store.playUrl(res.data[0].url);
+    });
+  }, [Id]);
 
   const getTime = (time) => {
     let m =
@@ -88,6 +103,19 @@ function MusicView() {
     setShow(falg);
   };
 
+  const toPlay = (index) => {
+    let count = store.count + index;
+    if (count < 0) {
+      count = store.lzylist.length - 1;
+    } else if (count > store.lzylist.length - 1) {
+      count = 0;
+    }
+    store.setCount(count);
+    let item = store.lzylist[store.count];
+    store.setsong(item.name + " — " + item.ar[0].name);
+    setId(item.id);
+  };
+
   return (
     <div>
       <NavBar onBack={back}>
@@ -96,7 +124,11 @@ function MusicView() {
         </marquee>
       </NavBar>
 
-      <ul className="text_c scroll C6 fs15" id="musicview">
+      <ul
+        className="text_c scroll C6 fs15"
+        id="musicview"
+        style={{ height: "40vh", paddingTop: "50%" }}
+      >
         {lrclist.map((item, index) => {
           return (
             <li
@@ -122,6 +154,7 @@ function MusicView() {
           src={require("../assets/pre.png")}
           alt=""
           style={{ width: "30px", height: "30px" }}
+          onClick={() => toPlay(-1)}
         />
         <div>
           {isshow ? (
@@ -145,6 +178,7 @@ function MusicView() {
           src={require("../assets/next.png")}
           alt=""
           style={{ width: "30px", height: "30px" }}
+          onClick={() => toPlay(1)}
         />
       </div>
 
