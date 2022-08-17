@@ -17,11 +17,9 @@ export default function Detail() {
   };
 
   useEffect(() => {
-    axios
-      .get("/personalized?proxy=https://node-music-cyan.vercel.app")
-      .then((res) => {
-        setmusicList(res.result);
-      });
+    axios.get("/personalized?proxy").then((res) => {
+      setmusicList(res.result);
+    });
   }, []);
 
   return (
