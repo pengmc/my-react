@@ -17,7 +17,7 @@ export default function Detail() {
   };
 
   useEffect(() => {
-    axios.get("/personalized&realIP=192.168.102.58:3000").then((res) => {
+    axios.get("/personalized?realIP=192.168.102.58:3000").then((res) => {
       setmusicList(res.result);
     });
   }, []);
