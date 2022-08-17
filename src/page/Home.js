@@ -1,13 +1,11 @@
 import "./css/home.css";
-import { useNavigate } from "react-router-dom";
+import Loadio from "../loadio.js";
 
 function Home() {
-  const navigate = useNavigate();
   return (
     <>
       <div>
-        <div onClick={() => navigate("/1231")}>精彩放送</div>
-        <div>主题咖乐园</div>
+        <Loadio />
       </div>
     </>
   );

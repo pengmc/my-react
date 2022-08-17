@@ -9,7 +9,9 @@ import { lazy, Suspense } from "react";
 import "./page/css/index.css";
 
 import { history } from "./history";
-import { Skeleton } from "antd-mobile";
+
+import Loadio from "./loadio.js";
+import "./page/css/index.css";
 
 const App = lazy(() => import("./App"));
 const Layout = lazy(() => import("./layout"));
@@ -23,7 +25,6 @@ const Empty = lazy(() => import("./page/empty"));
 const Captcha = lazy(() => import("./page/captcha"));
 const Playlist = lazy(() => import("./page/playlist"));
 const MusicView = lazy(() => import("./page/musicView"));
-
 // const root = ReactDOM.render(<App />, document.getElementById("root"));
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -31,9 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Suspense
       fallback={
         <div>
-          <Skeleton.Title animated />
-          <Skeleton.Paragraph lineCount={5} animated />
-          <p>玩命加载中...</p>
+          <Loadio />
         </div>
       }
     >
