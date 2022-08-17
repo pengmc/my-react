@@ -28,13 +28,12 @@ export default function Login() {
           localStorage.setItem("account", JSON.stringify(res.account));
           navigate("/home");
         } else {
-          console.log(1231);
           localStorage.setItem("token", "111");
         }
       })
       .catch((err) => {
-        console.log(1231);
         localStorage.setItem("token", "111");
+        navigate("/home");
       });
   };
 

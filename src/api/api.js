@@ -42,8 +42,8 @@ api.interceptors.response.use(
         case 404:
           // 找不到资源
           // ...
+          localStorage.removeItem("token");
           history.push("/");
-
           break;
       }
     } else {
