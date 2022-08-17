@@ -9,6 +9,7 @@ import { lazy, Suspense } from "react";
 import "./page/css/index.css";
 
 import { history } from "./history";
+import { Skeleton } from "antd-mobile";
 
 const App = lazy(() => import("./App"));
 const Layout = lazy(() => import("./layout"));
@@ -27,7 +28,15 @@ const MusicView = lazy(() => import("./page/musicView"));
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <HistoryRouter history={history}>
-    <Suspense fallback={<div>加载中...</div>}>
+    <Suspense
+      fallback={
+        <div>
+          <Skeleton.Title animated />
+          <Skeleton.Paragraph lineCount={5} animated />
+          <p>玩命加载中...</p>
+        </div>
+      }
+    >
       <Routes>
         <Route element={<App />}>
           <Route element={<Layout />}>
