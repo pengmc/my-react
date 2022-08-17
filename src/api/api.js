@@ -3,7 +3,7 @@ import { Toast } from "antd-mobile";
 import { history } from "../history";
 
 const api = axios.create({
-  baseURL: "https://node-music-cyan.vercel.app",
+  baseURL: "/proxy",
   timeout: 10000,
 });
 
