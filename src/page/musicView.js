@@ -70,7 +70,7 @@ function MusicView() {
 
   //时间转换
   const timeformat = (item) => {
-    if (item === "") {
+    if (!item) {
       return "0";
     }
     let m = item.slice(1, 3);
@@ -82,7 +82,7 @@ function MusicView() {
 
   const pretime = (item, index) => {
     let pretime = lrclist[index + 1];
-    if (!pretime) return "000000";
+    if (!pretime) return "last";
     let m = pretime.slice(1, 3);
     let s = pretime.slice(4, 6);
     let h = pretime.slice(7, 10);
@@ -164,7 +164,7 @@ function MusicView() {
               key={index}
               className={
                 (time >= timeformat(item) && time < pretime(item, index)) ||
-                index === 0
+                pretime(item) === "last"
                   ? "active mt16 w95"
                   : "mt16 w95"
               }
