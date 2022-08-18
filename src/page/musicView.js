@@ -25,9 +25,8 @@ function MusicView() {
 
   useEffect(() => {
     clearInterval(store.time);
-    let el = document.querySelector("#musicview");
     let audio = document.querySelector("#audio");
-
+    let el = document.querySelector("#musicview");
 
     //向上滑动
     el.addEventListener("touchstart", (e) => {
@@ -54,7 +53,6 @@ function MusicView() {
 
     el.scrollTo(0, 0);
     audio.currentTime = 0;
-    console.log(audio);
     settime(0);
     store.setShow(false);
 
@@ -62,7 +60,12 @@ function MusicView() {
       settime(parseInt(audio.currentTime * 1000));
       el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
     }, 1000);
-  }, [store.musicId]);
+  }, [store.url]);
+
+  useEffect(()=>{
+    let audio = document.querySelector("#audio");
+    audio.play()
+  },[store.url])
 
   const back = () => {
     navigate(-1);
@@ -103,7 +106,7 @@ function MusicView() {
       setlrclist(res.lrc.lyric.split("\n"));
 
     });
-  }, [store.musicId]);
+  }, [store.url]);
 
   const scrollHandle = (item) => {
     let audio = document.querySelector("#audio");

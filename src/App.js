@@ -12,7 +12,6 @@ function App() {
       <audio
         id="audio"
         src={store.url}
-        autoPlay
         onEnded={() => {
           console.log("播放结束");
           let count = store.count + 1;
