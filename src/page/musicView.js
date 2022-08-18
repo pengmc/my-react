@@ -82,7 +82,7 @@ function MusicView() {
 
   const pretime = (item, index) => {
     let pretime = lrclist[index + 1];
-    if (!pretime) return "last";
+    if (!pretime) return "0";
     let m = pretime.slice(1, 3);
     let s = pretime.slice(4, 6);
     let h = pretime.slice(7, 10);
@@ -163,8 +163,7 @@ function MusicView() {
             <li
               key={index}
               className={
-                (time >= timeformat(item) && time < pretime(item, index)) ||
-                pretime(item) === "last"
+                time >= timeformat(item) && time < pretime(item, index)
                   ? "active mt16 w95"
                   : "mt16 w95"
               }
