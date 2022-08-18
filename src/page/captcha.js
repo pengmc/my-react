@@ -30,9 +30,9 @@ export default function Captcha() {
 
   const [startTime, setstartTime] = useState(new Date());
 
-  const [name, setname] = useState("远瞩");
+  const [name, setname] = useState("");
 
-  const [phone, setphone] = useState("17687997972");
+  const [phone, setphone] = useState("");
 
   const [captcha, setcaptcha] = useState("");
 
@@ -100,9 +100,22 @@ export default function Captcha() {
             }}
             value={captcha}
           />
+          <Button
+            block
+            color="primary"
+            size="mini"
+            className="mt20"
+            onClick={sentReg}
+            style={{
+              height: "35px",
+              width: "170px",
+            }}
+          >
+            发送验证码
+          </Button>
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           label="时间"
           onClick={() => {
             setVisible(true);
@@ -144,19 +157,9 @@ export default function Captcha() {
               <Radio value="2">活动</Radio>
             </div>
           </Radio.Group>
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item label="验证码">
-          <Button
-            block
-            color="primary"
-            size="mini"
-            className=""
-            onClick={sentReg}
-          >
-            发送验证码
-          </Button>
-        </Form.Item>
+        <div className="mt20 flex flex_end"></div>
       </Form>
       <Button
         block

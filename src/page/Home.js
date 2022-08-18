@@ -1,11 +1,11 @@
 import "./css/home.css";
-import Loadio from "../loadio.js";
 
 function Home() {
   return (
     <>
       <div>
-        <Loadio />
+        {/* <Loadio /> */}
+        <h3>你发现了一片新大陆</h3>
       </div>
     </>
   );

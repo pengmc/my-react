@@ -130,6 +130,10 @@ ul{
 
 }
 
+.flex_end{
+  justify-content: flex-end;
+}
+
 .scroll{
   overflow-y: scroll;
   scroll-behavior: smooth;

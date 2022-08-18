@@ -44,6 +44,8 @@ api.interceptors.response.use(
           // ...
           localStorage.removeItem("token");
           history.push("/");
+          localStorage.setItem("path", "home");
+
           break;
       }
     } else {
