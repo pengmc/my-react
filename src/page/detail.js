@@ -18,6 +18,9 @@ export default function Detail() {
   };
 
   useEffect(() => {
+    let audio = document.querySelector("#audio");
+
+    audio.pause()
     axios.get("/personalized").then((res) => {
       setmusicList(res.result);
     });
