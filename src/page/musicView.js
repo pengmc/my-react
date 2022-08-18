@@ -27,7 +27,6 @@ function MusicView() {
     clearInterval(store.time);
     let el = document.querySelector("#musicview");
     let audio = document.querySelector("#audio");
-    audio.play();
 
 
     //向上滑动
@@ -100,10 +99,9 @@ function MusicView() {
   };
 
   useEffect(() => {
-    console.log(store.bgpic);
-
     axios.get("/lyric?id=" + store.musicId).then((res) => {
       setlrclist(res.lrc.lyric.split("\n"));
+
     });
   }, [store.musicId]);
 

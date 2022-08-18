@@ -23,6 +23,7 @@ class Store {
   playUrl(Id) {
     axios.get("/song/url?id=" + Id).then((res) => {
       this.url = res.data[0].url;
+
     });
   }
 
