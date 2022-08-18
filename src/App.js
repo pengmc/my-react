@@ -11,7 +11,6 @@ function App() {
       </Authentication>
       <audio
         id="audio"
-        autoPlay
         src={store.url}
         onEnded={() => {
           console.log("播放结束");

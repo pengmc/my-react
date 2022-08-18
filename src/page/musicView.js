@@ -27,6 +27,8 @@ function MusicView() {
     clearInterval(store.time);
     let el = document.querySelector("#musicview");
     let audio = document.querySelector("#audio");
+    audio.play();
+
 
     //向上滑动
     el.addEventListener("touchstart", (e) => {
@@ -54,7 +56,6 @@ function MusicView() {
     el.scrollTo(0, 0);
     audio.currentTime = 0;
     console.log(audio);
-    // audio.play();
     settime(0);
     store.setShow(false);
 
