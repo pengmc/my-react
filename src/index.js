@@ -12,9 +12,11 @@ import { history } from "./history";
 
 import Loadio from "./loadio.js";
 import "./page/css/index.css";
-import Vconsole from "vconsole";
+// import Vconsole from "vconsole";
 
-new Vconsole();
+// new Vconsole();
+
+localStorage.setItem("path", "home");
 
 const App = lazy(() => import("./App"));
 const Layout = lazy(() => import("./layout"));

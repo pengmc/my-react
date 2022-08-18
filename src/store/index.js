@@ -8,17 +8,27 @@ class Store {
   count = 0;
   lzylist = [];
   timeout = "";
-
+  isshow = false;
   bgpic = "";
+  musicId = "";
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setmusicId(id) {
+    this.musicId = id;
   }
 
   playUrl(Id) {
     axios.get("/song/url?id=" + Id).then((res) => {
       this.url = res.data[0].url;
     });
+  }
+
+  setShow(falg) {
+    console.log(falg);
+    this.isshow = falg;
   }
 
   setsong(name) {

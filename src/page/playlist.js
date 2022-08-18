@@ -4,6 +4,7 @@ import axios from "../api/api";
 import { NavBar, ImageViewer } from "antd-mobile";
 import { observer } from "mobx-react-lite";
 import { store } from "../store";
+import Play from "./compoent/play";
 
 function Playlist() {
   const navigate = useNavigate();
@@ -29,11 +30,12 @@ function Playlist() {
   };
 
   const play = (id, item, index) => {
-    console.log(item.ar[0].picUrl);
+    console.log(item.al.picUrl);
     store.setsong(item.name + " — " + item.ar[0].name);
     store.setCount(index);
-    // store.setBgpic(item.ar[0].picUrl);
+    store.setBgpic(item.al.picUrl);
     navigate("/musicView/" + id);
+    store.setmusicId(id);
   };
 
   const picView = (e, url) => {
@@ -46,7 +48,7 @@ function Playlist() {
     <div>
       <NavBar onBack={back}>详情</NavBar>
 
-      <ul>
+      <ul style={{ paddingBottom: "100px" }}>
         {palylist.map((item, index) => {
           return (
             <li
@@ -77,6 +79,10 @@ function Playlist() {
           );
         })}
       </ul>
+
+      <div className="h100 bort_1 fixed  w100 footer_play">
+        <Play />
+      </div>
     </div>
   );
 }

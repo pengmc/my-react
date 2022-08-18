@@ -121,17 +121,23 @@ ul{
   padding: 0;
 }
 
+.h100{
+  height: 100px;
+}
 
+.bort_1{
+  border-top: 1px solid #ddd;
+
+}
 
 .scroll{
   overflow-y: scroll;
-  height: 70vh;
   scroll-behavior: smooth;
   width: 100%;
 }
 
 .active{
-  color: #ff4100;
+  color: #fff;
   font-size: 18px;
 }
 
@@ -146,4 +152,16 @@ ul{
 .line{
   width: 100%;
   border-top: 1px dotted #666;
+}
+
+.c_fff{
+  color: #333;
+}
+
+.b20{
+  bottom: 20px;
+}
+
+.w100{
+  width: 100%;
 }
