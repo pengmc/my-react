@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 
 function Play() {
   // 播放
-  const palyer = (falg) => {
+  const palyer = (e,falg) => {
+    e.stopPropagation();
+
     let audio = document.querySelector("#audio");
     store.setShow(falg);
     if (!falg) {
@@ -44,8 +46,9 @@ function Play() {
   };
 
   //切换歌曲
-  const toPlay = (index) => {
-    store.playUrl(store.musicId);
+  const toPlay = (e,index) => {
+    e.stopPropagation();
+
     console.log(store.url);
     let count = store.count + index;
     if (count < 0) {
@@ -57,6 +60,8 @@ function Play() {
     let item = store.lzylist[store.count];
     store.setsong(item.name + " — " + item.ar[0].name);
     store.setmusicId(item.id);
+    store.playUrl(store.musicId);
+
   };
   return (
     <div className="plays">
@@ -79,7 +84,7 @@ function Play() {
           src={require("../../assets/pre.png")}
           alt=""
           style={{ width: "30px", height: "30px" }}
-          onClick={() => toPlay(-1)}
+          onClick={(e) => toPlay(e,-1)}
         />
         <div>
           {store.isshow ? (
@@ -87,14 +92,14 @@ function Play() {
               src={require("../../assets/play.png")}
               alt=""
               style={{ width: "30px", height: "30px" }}
-              onClick={() => palyer(false)}
+              onClick={(e) => palyer(e,false)}
             />
           ) : (
             <img
               src={require("../../assets/pause.png")}
               alt=""
               style={{ width: "30px", height: "30px" }}
-              onClick={() => palyer(true)}
+              onClick={(e) => palyer(e,true)}
             />
           )}
         </div>
@@ -103,7 +108,7 @@ function Play() {
           src={require("../../assets/next.png")}
           alt=""
           style={{ width: "30px", height: "30px" }}
-          onClick={() => toPlay(1)}
+          onClick={(e) => toPlay(e,1)}
         />
       </div>
     </div>

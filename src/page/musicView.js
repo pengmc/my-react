@@ -53,7 +53,8 @@ function MusicView() {
 
     el.scrollTo(0, 0);
     audio.currentTime = 0;
-    audio.play();
+    console.log(audio);
+    // audio.play();
     settime(0);
     store.setShow(false);
 

@@ -36,6 +36,7 @@ function Playlist() {
     store.setBgpic(item.al.picUrl);
     navigate("/musicView/" + id);
     store.setmusicId(id);
+    store.playUrl(id)
   };
 
   const picView = (e, url) => {
@@ -43,6 +44,10 @@ function Playlist() {
     setVisible(true);
     setdemoImage(url);
   };
+
+  const topath = ()=>{
+    navigate("/musicView/"+store.musicId);
+  }
 
   return (
     <div>
@@ -80,7 +85,7 @@ function Playlist() {
         })}
       </ul>
 
-      <div className="h100 bort_1 fixed  w100 footer_play">
+      <div className="h100 bort_1 fixed  w100 footer_play" onClick={topath}>
         <Play />
       </div>
     </div>
