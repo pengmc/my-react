@@ -45,6 +45,8 @@ function Play() {
 
   //切换歌曲
   const toPlay = (index) => {
+    store.playUrl(store.musicId);
+    console.log(store.url);
     let count = store.count + index;
     if (count < 0) {
       count = store.lzylist.length - 1;

@@ -21,7 +21,6 @@ function App() {
           }
           store.setCount(count);
           let item = store.lzylist[store.count];
-          console.log(item);
           store.setsong(item.name + " — " + item.ar[0].name);
           store.playUrl(item.id);
         }}

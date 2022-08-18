@@ -103,8 +103,6 @@ function MusicView() {
     axios.get("/lyric?id=" + store.musicId).then((res) => {
       setlrclist(res.lrc.lyric.split("\n"));
     });
-
-    store.playUrl(store.musicId);
   }, [store.musicId]);
 
   const scrollHandle = (item) => {
