@@ -2,8 +2,8 @@ import axios from "axios";
 import { Toast } from "antd-mobile";
 import { history } from "../history";
 
-const baseurl = "/proxy";
-// const baseurl = "https:///node-music-cyan.vercel.app";
+// const baseurl = "/proxy";
+const baseurl = "https:///node-music-cyan.vercel.app";
 
 const api = axios.create({
   baseURL: baseurl,
