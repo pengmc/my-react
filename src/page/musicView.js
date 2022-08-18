@@ -18,13 +18,41 @@ function MusicView() {
 
   const [Id, setId] = useState(param.id);
 
+  const [start, setstart] = useState("");
+
+  const [end, setend] = useState("");
+
   useEffect(() => {
     clearInterval(store.time);
     let el = document.querySelector("#musicview");
     let audio = document.querySelector("#audio");
 
+    //向上滑动
+    el.addEventListener("touchstart", (e) => {
+      setstart(e.changedTouches[0].pageY);
+      let el = document.querySelector("#musicview");
+      //清空定时器
+      clearInterval(store.time);
+      clearTimeout(store.timeout);
+
+      store.timeout = setTimeout(() => {
+        store.time = setInterval(() => {
+          settime(parseInt(audio.currentTime * 1000));
+          el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
+        }, 1000);
+      }, 1000);
+    });
+    //向下滑动
+    el.addEventListener("touchend", (e) => {
+      setend(e.changedTouches[0].pageY);
+      if (start - end > 150 || start - end < -150) {
+        console.log("向下滑动");
+      }
+    });
+
     el.scrollTo(0, 0);
     audio.currentTime = 0;
+    audio.play();
     settime(0);
     setShow(false);
 
@@ -69,13 +97,13 @@ function MusicView() {
   };
 
   useEffect(() => {
+    console.log(store.bgpic);
+
     axios.get("/lyric?id=" + Id).then((res) => {
       setlrclist(res.lrc.lyric.split("\n"));
     });
 
-    axios.get("/song/url?id=" + Id).then((res) => {
-      store.playUrl(res.data[0].url);
-    });
+    store.playUrl(Id);
   }, [Id]);
 
   const getTime = (time) => {
@@ -116,8 +144,21 @@ function MusicView() {
     setId(item.id);
   };
 
+  const scrollHandle = (item) => {
+    let audio = document.querySelector("#audio");
+    let el = document.querySelector("#musicview");
+    audio.currentTime = timeformat(item) / 1000;
+
+    settime(parseInt(audio.currentTime * 1000));
+    el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
+  };
+
+  const bgpic = {
+    background: store.bgpic,
+  };
+
   return (
-    <div>
+    <div style={bgpic}>
       <NavBar onBack={back}>
         <marquee direction="left" style={{ width: "100%" }}>
           <div>{store.song || "空"}</div>
@@ -134,10 +175,11 @@ function MusicView() {
             <li
               key={index}
               className={
-                time >= timeformat(item) && time <= pretime(item, index)
-                  ? "active mt16"
-                  : "mt16"
+                time >= timeformat(item) && time < pretime(item, index)
+                  ? "active mt16 w95"
+                  : "mt16 w95"
               }
+              onClick={() => scrollHandle(item)}
             >
               {item.split("]")[1] || "~ ~ ~"}
             </li>
@@ -181,8 +223,6 @@ function MusicView() {
           onClick={() => toPlay(1)}
         />
       </div>
-
-      <audio src={store.url} autoPlay id="audio"></audio>
     </div>
   );
 }

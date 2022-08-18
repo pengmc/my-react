@@ -12,6 +12,9 @@ import { history } from "./history";
 
 import Loadio from "./loadio.js";
 import "./page/css/index.css";
+import Vconsole from "vconsole";
+
+new Vconsole();
 
 const App = lazy(() => import("./App"));
 const Layout = lazy(() => import("./layout"));

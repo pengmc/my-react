@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import axios from "../api/api.js";
 
 class Store {
   url = "";
@@ -6,17 +7,26 @@ class Store {
   song = "";
   count = 0;
   lzylist = [];
+  timeout = "";
+
+  bgpic = "";
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  playUrl(url) {
-    this.url = url;
+  playUrl(Id) {
+    axios.get("/song/url?id=" + Id).then((res) => {
+      this.url = res.data[0].url;
+    });
   }
 
   setsong(name) {
     this.song = name;
+  }
+
+  setBgpic(url) {
+    this.bgpic = url;
   }
 
   setLzy(list) {

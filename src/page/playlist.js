@@ -29,9 +29,10 @@ function Playlist() {
   };
 
   const play = (id, item, index) => {
-    console.log(id);
+    console.log(item.ar[0].picUrl);
     store.setsong(item.name + " — " + item.ar[0].name);
     store.setCount(index);
+    // store.setBgpic(item.ar[0].picUrl);
     navigate("/musicView/" + id);
   };
 

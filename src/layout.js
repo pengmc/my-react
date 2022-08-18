@@ -6,6 +6,7 @@ import {
   UnorderedListOutline,
   UserOutline,
 } from "antd-mobile-icons";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Authentication from "./authentication";
@@ -38,11 +39,18 @@ function Layout() {
   ];
 
   const topath = (path) => {
-    console.log(path);
+    localStorage.setItem("path", path);
+    seteky(path);
     navgate(path);
   };
 
   const navgate = useNavigate();
+
+  const [activeKey, seteky] = useState("home");
+
+  useEffect(() => {
+    seteky(localStorage.path);
+  }, []);
 
   return (
     <div className="content">
@@ -50,7 +58,7 @@ function Layout() {
         <Outlet />
       </Authentication>
       <div className="footer">
-        <TabBar onChange={(val) => topath(val)}>
+        <TabBar onChange={(val) => topath(val)} activeKey={activeKey}>
           {tabs.map((item) => (
             <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
           ))}
