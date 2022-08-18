@@ -75,7 +75,7 @@ function Play() {
           zIndex: "-1",
         }}
       ></div>
-      <p className="text_c" style={{ color: "#666", fontSize: "16px" }}>
+      <p className="text_c" style={{ color: "#fff", fontSize: "16px" }}>
         {getTime(time)}
       </p>
 

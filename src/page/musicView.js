@@ -177,7 +177,7 @@ function MusicView() {
       </ul>
 
       {/* 播放器 */}
-      <Play />
+      <Play style={{color:'#fff'}}/>
     </div>
   );
 }
