@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 function Play() {
   // 播放
-  const palyer = (e,falg) => {
+  const palyer = (e, falg) => {
     e.stopPropagation();
 
     let audio = document.querySelector("#audio");
@@ -46,7 +46,7 @@ function Play() {
   };
 
   //切换歌曲
-  const toPlay = (e,index) => {
+  const toPlay = (e, index) => {
     e.stopPropagation();
 
     console.log(store.url);
@@ -61,7 +61,7 @@ function Play() {
     store.setsong(item.name + " — " + item.ar[0].name);
     store.setmusicId(item.id);
     store.playUrl(store.musicId);
-
+    store.setBgpic(item.al.picUrl);
   };
   return (
     <div className="plays">
@@ -84,7 +84,7 @@ function Play() {
           src={require("../../assets/pre.png")}
           alt=""
           style={{ width: "30px", height: "30px" }}
-          onClick={(e) => toPlay(e,-1)}
+          onClick={(e) => toPlay(e, -1)}
         />
         <div>
           {store.isshow ? (
@@ -92,14 +92,14 @@ function Play() {
               src={require("../../assets/play.png")}
               alt=""
               style={{ width: "30px", height: "30px" }}
-              onClick={(e) => palyer(e,false)}
+              onClick={(e) => palyer(e, false)}
             />
           ) : (
             <img
               src={require("../../assets/pause.png")}
               alt=""
               style={{ width: "30px", height: "30px" }}
-              onClick={(e) => palyer(e,true)}
+              onClick={(e) => palyer(e, true)}
             />
           )}
         </div>
@@ -108,7 +108,7 @@ function Play() {
           src={require("../../assets/next.png")}
           alt=""
           style={{ width: "30px", height: "30px" }}
-          onClick={(e) => toPlay(e,1)}
+          onClick={(e) => toPlay(e, 1)}
         />
       </div>
     </div>

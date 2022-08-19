@@ -37,9 +37,9 @@ export default function Login() {
       });
   };
 
-  const [phone, setphone] = useState("1565516544");
+  const [phone, setphone] = useState("admin");
 
-  const [pass, setpass] = useState("");
+  const [pass, setpass] = useState("123");
 
   return (
     <div className="flex justify item wrap">
