@@ -2,10 +2,11 @@ import { Outlet } from "react-router-dom";
 import Authentication from "./authentication";
 import { observer } from "mobx-react-lite";
 import { store } from "./store";
+import { AliveScope } from 'react-activation'
 
 function App() {
   return (
-    <>
+    <AliveScope>
       <Authentication>
         <Outlet />
       </Authentication>
@@ -24,7 +25,7 @@ function App() {
           store.playUrl(item.id);
         }}
       />
-    </>
+    </AliveScope>
   );
 }
 

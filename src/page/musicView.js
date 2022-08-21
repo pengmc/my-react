@@ -5,6 +5,8 @@ import { NavBar } from "antd-mobile";
 import { observer } from "mobx-react-lite";
 import { store } from "../store";
 import Play from "./compoent/play.js";
+import KeepAlive from 'react-activation'
+
 
 function MusicView() {
   // const param = useParams();
@@ -118,7 +120,8 @@ function MusicView() {
   };
 
   return (
-    <div
+    
+      <div
       style={{
         backgroundColor: "rgba(174, 182, 181, 0.5)",
         height: "96vh",
@@ -128,6 +131,8 @@ function MusicView() {
         borderRadius: "15px",
       }}
     >
+
+      {/* 背景图 */}
       <div
         style={{
           background: `no-repeat url(${store.bgpic}) 0 0`,
@@ -178,10 +183,23 @@ function MusicView() {
         })}
       </ul>
 
+
+
       {/* 播放器 */}
-      <Play style={{color:'#fff'}}/>
+        <Play style={{color:'#fff'}}/>
     </div>
+      
+    
   );
 }
 
-export default observer(MusicView);
+
+function Keep(){
+  return <div>
+    <KeepAlive cacheKey="UNIQUE_1" >
+      <MusicView/>
+    </KeepAlive>
+  </div>
+}
+
+export default observer(Keep);

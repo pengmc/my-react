@@ -14,6 +14,7 @@ import Loadio from "./loadio.js";
 import "./page/css/index.css";
 // import Vconsole from "vconsole";
 
+
 // new Vconsole();
 
 localStorage.setItem("path", "home");
@@ -54,11 +55,19 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
           <Route path="/captcha" element={<Captcha />} />
 
-          <Route path="/Detail" element={<Detail />} />
+          <Route path="/Detail" element={
+          <Detail />
+          } />
 
-          <Route path="/playlist/:id" element={<Playlist />} />
+          <Route path="/playlist/:id" element={
+            // <KeepAlive>
+              <Playlist />
+            // </KeepAlive>
+          } />
 
-          <Route path="/musicView/:id" element={<MusicView />} />
+          <Route path="/musicView/:id" element={
+              <MusicView />
+          }/>
         </Route>
         <Route path="*" element={<Empty />} />
       </Routes>

@@ -36,6 +36,7 @@ export default function Detail() {
             <div
               className="flex mt20 warp"
               onClick={() => palyer(item.id, index)}
+              key={index}
             >
               <img alt="" src={item.picUrl + "?param=50y50"} />
               <div className="ml20" key={item.id}>
