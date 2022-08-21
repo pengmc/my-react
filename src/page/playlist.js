@@ -5,7 +5,6 @@ import { NavBar, ImageViewer } from "antd-mobile";
 import { observer } from "mobx-react-lite";
 import { store } from "../store";
 import Play from "./compoent/play";
-import KeepAlive from 'react-activation'
 
 
 function Playlist() {
@@ -94,10 +93,6 @@ function Playlist() {
   );
 }
 
-function Keep(){
-  return <KeepAlive cacheKey="UNIQUE_1" >
-    <Playlist/>
-  </KeepAlive>
-}
 
-export default observer(Keep);
+
+export default observer(Playlist);

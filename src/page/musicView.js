@@ -62,6 +62,13 @@ function MusicView() {
       settime(parseInt(audio.currentTime * 1000));
       el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
     }, 1000);
+
+    return ()=>{
+      el.removeEventListener('touchstart',el)
+      el.removeEventListener('touchend',el)
+
+      
+    }
   }, [store.url]);
 
   useEffect(()=>{
@@ -120,8 +127,9 @@ function MusicView() {
   };
 
   return (
-    
-      <div
+
+
+<div
       style={{
         backgroundColor: "rgba(174, 182, 181, 0.5)",
         height: "96vh",
@@ -131,8 +139,7 @@ function MusicView() {
         borderRadius: "15px",
       }}
     >
-
-      {/* 背景图 */}
+  {/* 背景图 */}
       <div
         style={{
           background: `no-repeat url(${store.bgpic}) 0 0`,
@@ -145,7 +152,7 @@ function MusicView() {
           zIndex: "-1",
         }}
       ></div>
-
+      
       <NavBar
         onBack={back}
         style={{
@@ -156,8 +163,8 @@ function MusicView() {
           <div>{store.song || "空"}</div>
         </marquee>
       </NavBar>
-
-      {/* 歌词部分 */}
+      
+{/* 歌词部分 */}
       <ul
         className="text_c scroll c_fff fs15"
         id="musicview"
@@ -194,12 +201,9 @@ function MusicView() {
 }
 
 
-function Keep(){
-  return <div>
-    <KeepAlive cacheKey="UNIQUE_1" >
-      <MusicView/>
-    </KeepAlive>
-  </div>
-}
 
-export default observer(Keep);
+export default observer(()=>{
+  return <KeepAlive>
+    <MusicView/>
+  </KeepAlive>
+});

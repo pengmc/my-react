@@ -12,6 +12,7 @@ import { history } from "./history";
 
 import Loadio from "./loadio.js";
 import "./page/css/index.css";
+import KeepAlive from "react-activation";
 // import Vconsole from "vconsole";
 
 
@@ -31,6 +32,8 @@ const Empty = lazy(() => import("./page/empty"));
 const Captcha = lazy(() => import("./page/captcha"));
 const Playlist = lazy(() => import("./page/playlist"));
 const MusicView = lazy(() => import("./page/musicView"));
+
+
 // const root = ReactDOM.render(<App />, document.getElementById("root"));
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -55,20 +58,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
           <Route path="/captcha" element={<Captcha />} />
 
-          <Route path="/Detail" element={
-          <Detail />
-          } />
 
-          <Route path="/playlist/:id" element={
-            // <KeepAlive>
-              <Playlist />
-            // </KeepAlive>
-          } />
+            <Route path="/Detail" element={ <Detail /> } />
+            
+            <Route path="/playlist/:id" element={
+              // <KeepAlive>
+                <Playlist />
+              // </KeepAlive>
+            } />
 
-          <Route path="/musicView/:id" element={
-              <MusicView />
-          }/>
-        </Route>
+            <Route path="/musicView/:id" element={
+                <MusicView />
+            }/>
+          </Route>
+
         <Route path="*" element={<Empty />} />
       </Routes>
     </Suspense>
