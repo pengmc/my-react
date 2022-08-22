@@ -2,8 +2,9 @@ import { NavBar } from "antd-mobile";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/api";
+import KeepAlive from "react-activation";
 
-export default function Detail() {
+function Detail() {
   const navigate = useNavigate();
 
   const [musicList, setmusicList] = useState([]);
@@ -51,3 +52,12 @@ export default function Detail() {
     </>
   );
 }
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default () => {
+  return (
+    <KeepAlive>
+      <Detail />
+    </KeepAlive>
+  );
+};
