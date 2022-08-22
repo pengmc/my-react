@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 export default function Authentication({ children }) {
   const urlParams = new URL(window.location.href);
   const pathname = urlParams?.pathname;
+
   if (localStorage.token) {
     return <div> {children} </div>;
   } else {

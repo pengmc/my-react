@@ -38,6 +38,7 @@ const Empty = lazy(() => import("./page/empty"));
 const Captcha = lazy(() => import("./page/captcha"));
 const Playlist = lazy(() => import("./page/playlist"));
 const MusicView = lazy(() => import("./page/musicView"));
+const Chat = lazy(() => import("./page/chat"));
 
 // const root = ReactDOM.render(<App />, document.getElementById("root"));
 
@@ -63,6 +64,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/captcha" element={<Captcha />} />
             <Route path="/Detail" element={<Detail />} />
             <Route path="/playlist/:id" element={<Playlist />} />
+            <Route path="/chat" element={<Chat />} />
             {/* <KeepaliveRouterSwitch>
             <KeepaliveRoute
               path="/musicView/:id"

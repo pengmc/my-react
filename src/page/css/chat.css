@@ -1,0 +1,14 @@
+.footer{
+  position: fixed;
+  bottom: 20px;
+}
+
+.ipt{
+  border: #cecece 1px solid;
+  outline: none;
+  height: 40px;
+  flex: .6;
+  margin: 0 20px;
+  border-radius: 5px;
+  color: #666;
+}

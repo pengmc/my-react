@@ -7,7 +7,6 @@ import { store } from "../store";
 import Play from "./compoent/play";
 import KeepAlive from "react-activation";
 
-
 function Playlist() {
   const navigate = useNavigate();
 
@@ -20,12 +19,13 @@ function Playlist() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    axios.get("/playlist/detail?id=" + params.id).then((res) => {
+    console.log(params.id);
+    axios.get("/playlist/detail?id=" + store.detailid).then((res) => {
       console.log(res.playlist.tracks);
       setlist(res.playlist.tracks);
       store.setLzy(res.playlist.tracks);
     });
-  }, [params.id]);
+  }, [store.detailid]);
 
   const back = () => {
     navigate(-1);

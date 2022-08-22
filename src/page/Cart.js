@@ -9,14 +9,28 @@ function Cart() {
   };
 
   return (
-    <div>
-      <img
-        alt=""
-        src={cion1}
-        onClick={todetail}
-        style={{ width: "50px", borderRadius: "5px" }}
-      />
-      <p>每日推荐</p>
+    <div className="flex text_c">
+      <div>
+        <img
+          alt=""
+          src={cion1}
+          onClick={todetail}
+          style={{ width: "50px", borderRadius: "5px" }}
+        />
+        <p>每日推荐</p>
+      </div>
+
+      <div className="ml20 text_c">
+        <img
+          alt=""
+          src={require("../assets/logo192.png")}
+          onClick={() => {
+            navgate("/chat");
+          }}
+          style={{ width: "50px", borderRadius: "5px" }}
+        />
+        <p>聊天室</p>
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { NavBar } from "antd-mobile";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/api";
-import KeepAlive from "react-activation";
+import KeepAlive, { useActivate } from "react-activation";
 import { store } from "../store";
 import { observer } from "mobx-react-lite";
 
@@ -15,20 +15,23 @@ function Detail() {
     navigate(-1);
   };
 
-  const palyer = (id, index) => {
+  const palyer = (id) => {
     navigate("/playlist/" + id);
+    store.setDeid(id);
   };
 
   useEffect(() => {
-    console.log(el);
-    let audio = store.audio.current;
-
-    audio.pause();
-    store.isshow = false;
     axios.get("/personalized").then((res) => {
       setmusicList(res.result);
     });
   }, []);
+
+  useActivate(() => {
+    console.log(el);
+    let audio = store.audio.current;
+    audio.pause();
+    store.setShow(true);
+  });
 
   const el = useRef("");
 

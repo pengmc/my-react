@@ -12,9 +12,14 @@ class Store {
   bgpic = "";
   musicId = "";
   audio = "";
+  detailid = "";
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setDeid(id) {
+    this.detailid = id;
   }
 
   setmusicId(id) {
