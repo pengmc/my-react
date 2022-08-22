@@ -60,7 +60,7 @@ function Play() {
     let item = store.lzylist[store.count];
     store.setsong(item.name + " — " + item.ar[0].name);
     store.setmusicId(item.id);
-    store.playUrl(store.musicId);
+    // store.playUrl(store.musicId);
     store.setBgpic(item.al.picUrl);
   };
   return (

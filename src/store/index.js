@@ -11,6 +11,7 @@ class Store {
   isshow = false;
   bgpic = "";
   musicId = "";
+  audio = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -18,13 +19,14 @@ class Store {
 
   setmusicId(id) {
     this.musicId = id;
+    axios.get("/song/url?id=" + id).then((res) => {
+      this.url = res.data[0].url;
+    });
   }
 
-  playUrl(Id) {
-    axios.get("/song/url?id=" + Id).then((res) => {
-      this.url = res.data[0].url;
-
-    });
+  setelement(el) {
+    console.log(el);
+    this.audio = el;
   }
 
   setShow(falg) {

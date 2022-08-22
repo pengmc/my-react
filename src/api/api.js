@@ -17,6 +17,10 @@ api.interceptors.request.use((req) => {
 api.interceptors.response.use(
   (response) => {
     // 成功后返回response的主体，其他数据一般并不需要，这样在使用中只需要关注数据主体就可以
+    if (response.data.code === -462) {
+      Location.href = response.data.url;
+    }
+
     return response.data;
   },
   (error) => {
@@ -25,6 +29,7 @@ api.interceptors.response.use(
       if (response.data.msg) {
         Toast.show(response.data.msg);
       }
+
       // 服务器返回了结果
       // 这里能够读出服务器返回的错误HTTP状态码，根据不同状态码进行不同处理
       // 这个根据业务需求操作即可

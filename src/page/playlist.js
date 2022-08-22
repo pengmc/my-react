@@ -5,6 +5,7 @@ import { NavBar, ImageViewer } from "antd-mobile";
 import { observer } from "mobx-react-lite";
 import { store } from "../store";
 import Play from "./compoent/play";
+import KeepAlive from "react-activation";
 
 function Playlist() {
   const navigate = useNavigate();
@@ -30,13 +31,12 @@ function Playlist() {
   };
 
   const play = (id, item, index) => {
-    console.log(item.al.picUrl);
     store.setsong(item.name + " — " + item.ar[0].name);
     store.setCount(index);
     store.setBgpic(item.al.picUrl);
     navigate("/musicView/" + id);
     store.setmusicId(id);
-    store.playUrl(id)
+    // store.playUrl(id);
   };
 
   const picView = (e, url) => {
@@ -45,9 +45,9 @@ function Playlist() {
     setdemoImage(url);
   };
 
-  const topath = ()=>{
-    navigate("/musicView/"+store.musicId);
-  }
+  const topath = () => {
+    navigate("/musicView/" + store.musicId);
+  };
 
   return (
     <div>
@@ -92,4 +92,10 @@ function Playlist() {
   );
 }
 
-export default observer(Playlist);
+export default observer(() => {
+  return (
+    <KeepAlive>
+      <Playlist />
+    </KeepAlive>
+  );
+});

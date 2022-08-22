@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Input, Form, DatePicker, Radio, Button, NavBar } from "antd-mobile";
+import { useState } from "react";
+import { Input, Form, Button, NavBar } from "antd-mobile";
 import axios from "../api/api";
 import md5 from "js-md5";
 
@@ -24,11 +24,11 @@ export default function Captcha() {
     });
   };
 
-  const [radioVal, setradioVal] = useState("1");
+  // const [radioVal, setradioVal] = useState("1");
 
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
-  const [startTime, setstartTime] = useState(new Date());
+  // const [startTime, setstartTime] = useState(new Date());
 
   const [name, setname] = useState("");
 
@@ -38,11 +38,11 @@ export default function Captcha() {
 
   const [pass, setpass] = useState("123456");
 
-  const now = new Date();
+  // const now = new Date();
 
-  useEffect(() => {
-    console.log(startTime.getTime());
-  }, [startTime]);
+  // useEffect(() => {
+  //   console.log(startTime.getTime());
+  // }, [startTime]);
 
   const sentReg = () => {
     axios.get("proxy/captcha/sent?phone=" + phone);

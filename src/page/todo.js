@@ -8,15 +8,18 @@ function Cart() {
 
   const [userinfo, setinfo] = useState([]);
 
-  useEffect(() => {
-    // axios.get("proxy/user/account").then((res) => {
-    //   console.log(res.profile);
-    //   setinfo(res.profile);
-    // });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("proxy/user/account").then((res) => {
+  //     console.log(res.profile);
+  //     setinfo(res.profile);
+  //   });
+  // }, []);
+
   return (
     <div>
-      {/* <div className="flex item pt20 ">
+      <h2>我的主页</h2>
+
+      <div className="flex item pt20 ">
         <img
           alt=""
           src={userinfo.avatarUrl + "?param=60y60"}
@@ -26,10 +29,9 @@ function Cart() {
         <div className="flex">
           <span className="ml20 fs16">{userinfo.nickname}</span>
 
-          <span className="ml20 fs16">ip:{userinfo.lastLoginIP}</span>
+          <span className="ml20 fs16">{userinfo.lastLoginIP}</span>
         </div>
-      </div> */}
-      <h2>我的主页</h2>
+      </div>
       <Button
         size="large"
         block

@@ -12,6 +12,14 @@ import { history } from "./history";
 
 import Loadio from "./loadio.js";
 import "./page/css/index.css";
+
+// import {
+//   KeepaliveRouterSwitch,
+//   KeepaliveRoute,
+//   addKeeperListener,
+// } from "react-keepalive-router";
+import KeepAlive, { AliveScope } from "react-activation";
+
 // import Vconsole from "vconsole";
 
 // new Vconsole();
@@ -30,38 +38,42 @@ const Empty = lazy(() => import("./page/empty"));
 const Captcha = lazy(() => import("./page/captcha"));
 const Playlist = lazy(() => import("./page/playlist"));
 const MusicView = lazy(() => import("./page/musicView"));
+
 // const root = ReactDOM.render(<App />, document.getElementById("root"));
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <HistoryRouter history={history}>
-    <Suspense
-      fallback={
-        <div>
-          <Loadio />
-        </div>
-      }
-    >
-      <Routes>
-        <Route element={<App />}>
-          <Route element={<Layout />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/todo" element={<Todo />} />
-            <Route path="/message" element={<Message />} />
+  <AliveScope>
+    <HistoryRouter history={history}>
+      <Suspense
+        fallback={
+          <div>
+            <Loadio />
+          </div>
+        }
+      >
+        <Routes>
+          <Route element={<App />}>
+            <Route element={<Layout />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/todo" element={<Todo />} />
+              <Route path="/message" element={<Message />} />
+            </Route>
+            <Route path="/" element={<Login />} />
+            <Route path="/captcha" element={<Captcha />} />
+            <Route path="/Detail" element={<Detail />} />
+            <Route path="/playlist/:id" element={<Playlist />} />
+            {/* <KeepaliveRouterSwitch>
+            <KeepaliveRoute
+              path="/musicView/:id"
+              element={<MusicView />}
+            ></KeepaliveRoute>
+          </KeepaliveRouterSwitch> */}
+            <Route path="/musicView/:id" element={<MusicView />}></Route>
           </Route>
-
-          <Route path="/" element={<Login />} />
-
-          <Route path="/captcha" element={<Captcha />} />
-
-          <Route path="/Detail" element={<Detail />} />
-
-          <Route path="/playlist/:id" element={<Playlist />} />
-
-          <Route path="/musicView/:id" element={<MusicView />} />
-        </Route>
-        <Route path="*" element={<Empty />} />
-      </Routes>
-    </Suspense>
-  </HistoryRouter>
+          <Route path="*" element={<Empty />} />
+        </Routes>
+      </Suspense>
+    </HistoryRouter>
+  </AliveScope>
 );

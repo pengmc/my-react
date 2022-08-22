@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/api";
 import { NavBar } from "antd-mobile";
 import { observer } from "mobx-react-lite";
 import { store } from "../store";
 import Play from "./compoent/play.js";
+import KeepAlive from "react-activation";
 
 function MusicView() {
   // const param = useParams();
@@ -19,19 +20,26 @@ function MusicView() {
 
   // const [Id] = useState(store.musicId);
 
-  const [start, setstart] = useState("");
+  const [start] = useState("");
 
-  const [end, setend] = useState("");
+  const [end] = useState("");
+
+  const musicview = useRef(null);
 
   useEffect(() => {
     clearInterval(store.time);
-    let audio = document.querySelector("#audio");
-    let el = document.querySelector("#musicview");
+    let audio = store.audio.current;
+    let el = musicview.current;
+
+    console.log(el);
+
+    el.scrollTo(0, 0);
+    audio.currentTime = 0;
+    settime(0);
+    store.setShow(false);
 
     //向上滑动
     el.addEventListener("touchstart", (e) => {
-      setstart(e.changedTouches[0].pageY);
-      let el = document.querySelector("#musicview");
       //清空定时器
       clearInterval(store.time);
       clearTimeout(store.timeout);
@@ -45,27 +53,41 @@ function MusicView() {
     });
     //向下滑动
     el.addEventListener("touchend", (e) => {
-      setend(e.changedTouches[0].pageY);
       if (start - end > 150 || start - end < -150) {
         console.log("向下滑动");
+        clearInterval(store.time);
+        clearTimeout(store.timeout);
+        store.timeout = setTimeout(() => {
+          store.time = setInterval(() => {
+            settime(parseInt(audio.currentTime * 1000));
+            el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
+          }, 1000);
+        }, 1000);
       }
     });
 
-    el.scrollTo(0, 0);
-    audio.currentTime = 0;
-    settime(0);
-    store.setShow(false);
-
+    // 设置歌词位置和当前时间
     store.time = setInterval(() => {
       settime(parseInt(audio.currentTime * 1000));
       el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
     }, 1000);
   }, [store.url]);
 
-  useEffect(()=>{
-    let audio = document.querySelector("#audio");
-    audio.play()
-  },[store.url])
+  //调用歌词地址
+  useEffect(() => {
+    if (store.url === "") return;
+    console.log(new Date());
+    axios.get("/lyric?id=" + store.musicId).then((res) => {
+      setlrclist(res.lrc.lyric.split("\n"));
+    });
+  }, [store.url]);
+
+  //监听歌曲是否播放
+  useEffect(() => {
+    let audio = store.audio.current;
+    if (store.url === "") return;
+    audio.play();
+  }, [store.url]);
 
   const back = () => {
     navigate(-1);
@@ -101,16 +123,9 @@ function MusicView() {
     return active.offsetTop - active.offsetHeight;
   };
 
-  useEffect(() => {
-    axios.get("/lyric?id=" + store.musicId).then((res) => {
-      setlrclist(res.lrc.lyric.split("\n"));
-
-    });
-  }, [store.url]);
-
   const scrollHandle = (item) => {
-    let audio = document.querySelector("#audio");
-    let el = document.querySelector("#musicview");
+    let audio = store.audio.current;
+    let el = musicview.current;
     audio.currentTime = timeformat(item) / 1000;
 
     settime(parseInt(audio.currentTime * 1000));
@@ -155,7 +170,7 @@ function MusicView() {
       {/* 歌词部分 */}
       <ul
         className="text_c scroll c_fff fs15"
-        id="musicview"
+        ref={musicview}
         style={{
           height: "45vh",
           paddingTop: "50%",
@@ -179,9 +194,15 @@ function MusicView() {
       </ul>
 
       {/* 播放器 */}
-      <Play style={{color:'#fff'}}/>
+      <Play style={{ color: "#fff" }} />
     </div>
   );
 }
 
-export default observer(MusicView);
+export default observer(() => {
+  return (
+    <KeepAlive>
+      <MusicView />
+    </KeepAlive>
+  );
+});
