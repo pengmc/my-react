@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/api";
 import KeepAlive from "react-activation";
+import { store } from "../store";
+import { observer } from "mobx-react-lite";
 
 function Detail() {
   const navigate = useNavigate();
@@ -19,9 +21,10 @@ function Detail() {
 
   useEffect(() => {
     console.log(el);
-    let audio = document.querySelector("#audio");
+    let audio = store.audio.current;
 
     audio.pause();
+    store.isshow = false;
     axios.get("/personalized").then((res) => {
       setmusicList(res.result);
     });
@@ -53,11 +56,10 @@ function Detail() {
   );
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
+export default observer(() => {
   return (
     <KeepAlive>
       <Detail />
     </KeepAlive>
   );
-};
+});
