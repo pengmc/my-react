@@ -71,6 +71,11 @@ function MusicView() {
       settime(parseInt(audio.currentTime * 1000));
       el.scrollTo(0, getscoll() - 20 - el.offsetHeight / 2);
     }, 1000);
+
+    return () => {
+      el.removeEventListener("touchstart", el);
+      el.removeEventListener("touchend", el);
+    };
   }, [store.url]);
 
   //调用歌词地址
@@ -143,6 +148,7 @@ function MusicView() {
         borderRadius: "15px",
       }}
     >
+      {/* 背景图 */}
       <div
         style={{
           background: `no-repeat url(${store.bgpic}) 0 0`,

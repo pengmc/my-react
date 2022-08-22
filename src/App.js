@@ -3,6 +3,7 @@ import Authentication from "./authentication";
 import { observer } from "mobx-react-lite";
 import { store } from "./store";
 import { useEffect, useRef } from "react";
+import { AliveScope } from "react-activation";
 
 function App() {
   const audio = useRef(null);
@@ -11,7 +12,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <AliveScope>
       <Authentication>
         <Outlet />
       </Authentication>
@@ -31,7 +32,7 @@ function App() {
           store.playUrl(item.id);
         }}
       />
-    </>
+    </AliveScope>
   );
 }
 
