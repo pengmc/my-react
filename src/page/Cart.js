@@ -31,6 +31,18 @@ function Cart() {
         />
         <p>聊天室</p>
       </div>
+
+      <div className="ml20 text_c">
+        <img
+          alt=""
+          src={require("../assets/file.png")}
+          onClick={() => {
+            navgate("/upload");
+          }}
+          style={{ width: "50px", borderRadius: "5px" }}
+        />
+        <p>图片库</p>
+      </div>
     </div>
   );
 }

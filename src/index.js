@@ -18,7 +18,7 @@ import "./page/css/index.css";
 //   KeepaliveRoute,
 //   addKeeperListener,
 // } from "react-keepalive-router";
-import KeepAlive, { AliveScope } from "react-activation";
+import { AliveScope } from "react-activation";
 
 // import Vconsole from "vconsole";
 
@@ -39,6 +39,7 @@ const Captcha = lazy(() => import("./page/captcha"));
 const Playlist = lazy(() => import("./page/playlist"));
 const MusicView = lazy(() => import("./page/musicView"));
 const Chat = lazy(() => import("./page/chat"));
+const Upload = lazy(() => import("./page/upload"));
 
 // const root = ReactDOM.render(<App />, document.getElementById("root"));
 
@@ -65,6 +66,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/Detail" element={<Detail />} />
             <Route path="/playlist/:id" element={<Playlist />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/upload" element={<Upload />} />
             {/* <KeepaliveRouterSwitch>
             <KeepaliveRoute
               path="/musicView/:id"
