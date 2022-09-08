@@ -24,9 +24,20 @@ export default function Chat() {
     };
     axios.post("/proxy/upload", formdata, config).then((res) => {
       console.log(res.data);
-      setlist((old) => [...old, res.data]);
+      getimg()
     });
   };
+
+  useEffect(() => {
+    getimg()
+  }, [])
+
+  const getimg = () => {
+    axios.post('/proxy/getimg').then((res) => {
+      console.log(res);
+      setlist(res.data)
+    })
+  }
 
   return (
     <div>
@@ -53,7 +64,7 @@ export default function Chat() {
             <div key={index}>
               <img
                 alt=""
-                src={item}
+                src={item.url}
                 style={{ width: "150px" }}
                 className="ml20"
               />

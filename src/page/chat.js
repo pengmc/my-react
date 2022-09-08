@@ -1,41 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Button, NavBar, Input, Mask } from "antd-mobile";
 import "./css/chat.css";
 import { useNavigate } from "react-router";
 
 const socket = new WebSocket("ws://192.168.102.58:8088/");
 
+socket.onopen = (err, res) => {
+  socket.send('open')
+};
+
+
+
+socket.onerror = (err) => {
+  console.log(err);
+};
+
+
+
 export default function Chat() {
   const [list, setList] = useState([]);
   const [msg, setmsg] = useState("");
 
+  const viewh = useRef('')
+  const app = useRef('')
+
   useEffect(() => {
-    socket.onopen = function () {
-      socket.send("open");
+    app.current.scrollTo(0, viewh.current.clientHeight)
+
+  }, [list])
+
+
+
+  useEffect(() => {
+    // 监听socket消息
+    socket.onmessage = (res) => {
+      setList(JSON.parse(res.data))
     };
     // 监听socket连接
-
-    const getMessage = (res) => {
-      console.log("成功");
-      let msg = JSON.parse(res.data);
-      console.log(
-        msg.sort((a, b) => {
-          console.log(a.date);
-          return a.date - b.date;
-        })
-      );
-
-      setList(msg);
-    };
-
-    const error = (err) => {
-      console.log(err);
-    };
-
-    // 监听socket消息
-    socket.onmessage = getMessage;
-
-    socket.onerror = error;
+    return () => {
+      socket.close()
+    }
   }, []);
 
   const Navigate = useNavigate();
@@ -56,7 +60,7 @@ export default function Chat() {
   }, []);
 
   return (
-    <div>
+    <div  >
       <NavBar onBack={back}>
         <div
           onClick={() => {
@@ -67,40 +71,43 @@ export default function Chat() {
           聊天室
         </div>
       </NavBar>
-      <div className="scroll h80v">
-        {list.map((item, index) => {
-          return (
-            <div className="pos h50 mt10 " key={item._id}>
-              {item.name !== name ? (
-                <div className="flex flex_item mt20">
-                  <img
-                    alt=""
-                    src={require("../assets/logo192.png")}
-                    style={{ width: "40px" }}
-                  />
-                  <div className="mt20 ml10">
-                    <p className="flex1">{item.name}</p>
-                    <p className="flex1 mt10 bgc ">{item.msg}</p>
+      <div className="scroll " style={{ height: '80vh' }} ref={app}>
+        <div ref={viewh}>
+          {list.map((item, index) => {
+            return (
+              <div className="pos h50 mt10 " key={item.id}>
+                {item.name !== name ? (
+                  <div className="flex flex_item mt20">
+                    <img
+                      alt=""
+                      src={require("../assets/logo192.png")}
+                      style={{ width: "40px" }}
+                    />
+                    <div className="mt20 ml10">
+                      <p className="flex1">{item.name}</p>
+                      <p className="flex1 mt10 bgc ">{item.msg}</p>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="flex flex_item  flex_end rig">
-                  <div className="mt20">
-                    <p className="flex1">{item.name}</p>
-                    <p className="flex1 mt10 bgc ">{item.msg}</p>
-                  </div>
+                ) : (
+                  <div className="flex flex_item  flex_end rig">
+                    <div className="mt20">
+                      <p className="flex1">{item.name}</p>
+                      <p className="flex1 mt10 bgc ">{item.msg}</p>
+                    </div>
 
-                  <img
-                    alt=""
-                    className=" ml10"
-                    src={require("../assets/logo192.png")}
-                    style={{ width: "40px" }}
-                  />
-                </div>
-              )}
-            </div>
-          );
-        })}
+                    <img
+                      alt=""
+                      className=" ml10"
+                      src={require("../assets/logo192.png")}
+                      style={{ width: "40px" }}
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
       </div>
 
       <div className="flex flex_item footer">
@@ -124,6 +131,7 @@ export default function Chat() {
           color="primary"
           size="mini"
           onClick={() => {
+            if (msg == '') return
             socket.send(JSON.stringify({ msg, name }));
             setmsg("");
           }}

@@ -163,6 +163,7 @@ ul{
 }
 .scroll{
   overflow-y: scroll;
+  /* 设置滚动条平滑动画 */
   scroll-behavior: smooth;
   width: 100%;
 }
